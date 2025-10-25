@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - التحقق من البريد الإلكتروني</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🏦 MinerX</h1>
+                <p>التحقق من البريد الإلكتروني</p>
+            </div>
+            
+            <div class="verification-info">
+                <p>📧 تم إرسال رمز التحقق إلى: <span id="userEmail"></span></p>
+                <p>يرجى التحقق من بريدك الإلكتروني وإدخال الرمز المكون من 6 أرقام</p>
+            </div>
+            
+            <form class="login-form" id="verifyForm">
+                <div class="input-group">
+                    <label for="verificationCode">رمز التحقق</label>
+                    <input type="text" id="verificationCode" placeholder="أدخل الرمز المكون من 6 أرقام" maxlength="6" required>
+                </div>
+                
+                <button type="submit" class="login-btn">تحقق من الحساب</button>
+                
+                <div class="links">
+                    <a href="#" onclick="resendVerificationCode()">إعادة إرسال الرمز</a>
+                    <a href="register.html">تعديل البريد الإلكتروني</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

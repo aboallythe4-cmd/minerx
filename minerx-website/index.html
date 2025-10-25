@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logo p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .welcome-text {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-text h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .welcome-text p {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .login-form {
+            margin-top: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-group input.error {
+            border-color: #e74c3c;
+        }
+
+        .input-group input.success {
+            border-color: #2ecc71;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .login-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .links a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .password-info {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        /* زر إظهار/إخفاء كلمة المرور */
+        .password-toggle {
+            margin: 10px 0 20px 0;
+            text-align: right;
+        }
+
+        .toggle-password {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .toggle-password i {
+            margin-left: 5px;
+        }
+
+        /* رسائل التنبيه */
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* تحسينات إضافية باستخدام Font Awesome */
+        .logo h1 i {
+            margin-left: 10px;
+        }
+
+        .links a i {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">
+            <h1><i class="fas fa-microchip"></i> MinerX</h1>
+            <p>منصة التعدين السحابي المتطورة</p>
+        </div>
+        
+        <div class="welcome-text">
+            <h2>مرحبًا بك في MinerX</h2>
+            <p>حيث نمنح قوة التعدين إلى الجميع، بدون أجهزة، وبدون تعقيد.</p>
+            <p>استثمر بذكاء في التعدين السحابي، وتابع أرباحك تتطور بثبات ووضوح.</p>
+            <p>ابدأ اليوم بخطوة بسيطة،</p>
+            <p>ودع تقنياتنا تعمل من أجلك.</p>
+        </div>
+        
+        <div class="alert success" id="successAlert">
+            <i class="fas fa-check-circle"></i> تم تسجيل الدخول بنجاح!
+        </div>
+
+        <div class="alert error" id="errorAlert">
+            <i class="fas fa-exclamation-circle"></i> <span id="errorMessage"></span>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="input-group">
+                <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                <div class="password-info">
+                    <i class="fas fa-info-circle"></i> يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير، رقم، ورمز خاص
+                </div>
+            </div>
+            
+            <!-- زر إظهار/إخفاء كلمة المرور -->
+            <div class="password-toggle">
+                <button type="button" class="toggle-password" onclick="togglePassword()">
+                    <i class="fas fa-eye"></i> إظهار كلمة المرور
+                </button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                جاري تسجيل الدخول...
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+            
+            <div class="links">
+                <a href="register.html">
+                    <i class="fas fa-user-plus"></i> إنشاء حساب جديد
+                </a>
+                <a href="#">
+                    <i class="fas fa-key"></i> نسيت كلمة المرور؟
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // دالة إظهار/إخفاء كلمة المرور
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.toggle-password');
+            const icon = toggleButton.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+                toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i> إخفاء كلمة المرور';
+            } else {
+                passwordInput.type = 'password';
+                icon.className = 'fas fa-eye';
+                toggleButton.innerHTML = '<i class="fas fa-eye"></i> إظهار كلمة المرور';
+            }
+        }
+
+        // التحقق من صحة البريد الإلكتروني
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // التحقق من صحة كلمة المرور
+        function isValidPassword(password) {
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumbers = /\d/.test(password);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const hasMinLength = password.length >= 8;
+            
+            return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && hasMinLength;
+        }
+
+        // إظهار رسالة الخطأ
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            const successAlert = document.getElementById('successAlert');
+            
+            successAlert.style.display = 'none';
+            errorMessage.textContent = message;
+            errorAlert.style.display = 'block';
+        }
+
+        // إظهار رسالة النجاح
+        function showSuccess() {
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'block';
+        }
+
+        // إخفاء جميع الرسائل
+        function hideAlerts() {
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+        }
+
+        // معالجة تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loading = document.getElementById('loading');
+            
+            // إخفاء الرسائل السابقة
+            hideAlerts();
+            
+            // التحقق من صحة البيانات
+            if (!isValidEmail(email)) {
+                showError('البريد الإلكتروني غير صحيح');
+                document.getElementById('email').classList.add('error');
+                return;
+            }
+            
+            if (!isValidPassword(password)) {
+                showError('كلمة المرور غير صحيحة. يجب أن تحتوي على 8 أحرف على الأقل، حرف كبير، حرف صغير، رقم، ورمز خاص');
+                document.getElementById('password').classList.add('error');
+                return;
+            }
+            
+            // إظهار حالة التحميل
+            loginBtn.disabled = true;
+            loading.style.display = 'block';
+            
+            try {
+                // محاكاة اتصال بالخادم (يمكن استبدالها باتصال حقيقي)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // هنا يمكن إضافة الاتصال الفعلي مع الخادم
+                // const response = await fetch('/api/login', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ email, password })
+                // });
+                
+                // if (response.ok) {
+                //     const data = await response.json();
+                //     showSuccess();
+                //     // توجيه المستخدم إلى الصفحة الرئيسية بعد تسجيل الدخول
+                //     setTimeout(() => {
+                //         window.location.href = '/dashboard';
+                //     }, 1500);
+                // } else {
+                //     throw new Error('فشل تسجيل الدخول');
+                // }
+                
+                // لمحاكاة النجاح (يمكن إزالتها عند الربط مع الخادم الحقيقي)
+                showSuccess();
+                document.getElementById('email').classList.add('success');
+                document.getElementById('password').classList.add('success');
+                
+                // توجيه المستخدم إلى الصفحة الرئيسية بعد 2 ثانية
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+                
+            } catch (error) {
+                showError('حدث خطأ في تسجيل الدخول. يرجى المحاولة مرة أخرى.');
+                console.error('Login error:', error);
+            } finally {
+                loginBtn.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+
+        // إزالة حالة الخطأ عند الكتابة
+        document.getElementById('email').addEventListener('input', function() {
+            this.classList.remove('error', 'success');
+            hideAlerts();
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            this.classList.remove('error', 'success');
+            hideAlerts();
+        });
+    </script>
+</body>
+</html>

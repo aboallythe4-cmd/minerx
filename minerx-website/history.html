@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - سجل المعاملات</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- الهيدر -->
+    <div class="header">
+        <div class="header-right">
+            <h2>سجل المعاملات -MinerX</h2>
+        </div>
+        <div class="header-left">
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <!-- الشريط الجانبي -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 لوحة التحكم</a></li>
+            <li><a href="deposit.html">💳 الإيداع</a></li>
+            <li><a href="withdraw.html">💰 السحب</a></li>
+            <li><a href="history.html" class="active">📋 السجل</a></li>
+            <li><a href="profile.html">👤 الملف الشخصي</a></li>
+            <li><a href="index.html" class="no-logout">🚪 تسجيل الخروج</a></li>
+        </ul>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="dashboard">
+        <!-- إحصائيات سريعة -->
+        <div class="cards-grid">
+            <div class="card">
+                <h3>💳 إجمالي الإيداعات</h3>
+                <div class="price">$15,000.00</div>
+                <small>24 عملية إيداع</small>
+            </div>
+            <div class="card">
+                <h3>💰 إجمالي السحوبات</h3>
+                <div class="price">$6,750.00</div>
+                <small>12 عملية سحب</small>
+            </div>
+            <div class="card">
+                <h3>📈 صافي الأرباح</h3>
+                <div class="price" style="color: #27ae60;">+$2,150.00</div>
+                <small>منذ يناير 2024</small>
+            </div>
+            <div class="card">
+                <h3>🔄 إجمالي العمليات</h3>
+                <div class="price">36</div>
+                <small>عملية</small>
+            </div>
+        </div>
+
+        <!-- فلاتر البحث -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>🔍 تصفية السجل</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <select id="filterType" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                    <option value="all">جميع العمليات</option>
+                    <option value="deposit">الإيداعات فقط</option>
+                    <option value="withdraw">السحوبات فقط</option>
+                    <option value="investment">الاستثمارات</option>
+                </select>
+
+                <select id="filterStatus" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                    <option value="all">جميع الحالات</option>
+                    <option value="completed">مكتمل</option>
+                    <option value="pending">قيد المعالجة</option>
+                    <option value="failed">فاشل</option>
+                </select>
+
+                <input type="date" id="startDate" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+                <input type="date" id="endDate" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+
+                <button onclick="filterTransactions()" style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    تطبيق التصفية
+                </button>
+            </div>
+        </div>
+
+        <!-- جدول سجل المعاملات -->
+        <div class="card">
+            <h3>📋 سجل المعاملات الكامل</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>نوع العملية</th>
+                            <th>الوصف</th>
+                            <th>المبلغ</th>
+                            <th>الحالة</th>
+                            <th>رقم المرجع</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- إيداعات -->
+                        <tr>
+                            <td>2024-01-15 14:30</td>
+                            <td><span style="color: #27ae60;">إيداع</span></td>
+                            <td>إيداع عبر البطاقة - XAU استثمار</td>
+                            <td style="color: #27ae60;">+$1,000.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>DEP-789123</td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-14 11:15</td>
+                            <td><span style="color: #27ae60;">إيداع</span></td>
+                            <td>تحويل بنكي - محفظة استثمارية</td>
+                            <td style="color: #27ae60;">+$2,500.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>DEP-789122</td>
+                        </tr>
+                        
+                        <!-- سحوبات -->
+                        <tr>
+                            <td>2024-01-13 09:45</td>
+                            <td><span style="color: #e74c3c;">سحب</span></td>
+                            <td>سحب أرباح - تحويل بنكي</td>
+                            <td style="color: #e74c3c;">-$500.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>WD-456123</td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-12 16:20</td>
+                            <td><span style="color: #e74c3c;">سحب</span></td>
+                            <td>سحب إلى PayPal</td>
+                            <td style="color: #e74c3c;">-$300.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>WD-456122</td>
+                        </tr>
+
+                        <!-- استثمارات -->
+                        <tr>
+                            <td>2024-01-11 10:00</td>
+                            <td><span style="color: #3498db;">استثمار</span></td>
+                            <td>شراء ذهب (XAU) - 0.5 أوقية</td>
+                            <td style="color: #3498db;">-$1,150.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>INV-123789</td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-10 13:30</td>
+                            <td><span style="color: #3498db;">استثمار</span></td>
+                            <td>شراء فضة (XAG) - 100 أوقية</td>
+                            <td style="color: #3498db;">-$2,400.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>INV-123788</td>
+                        </tr>
+
+                        <!-- أرباح -->
+                        <tr>
+                            <td>2024-01-09 08:15</td>
+                            <td><span style="color: #9b59b6;">ربح</span></td>
+                            <td>أرباح استثمار الذهب</td>
+                            <td style="color: #9b59b6;">+$150.00</td>
+                            <td><span class="status completed">مكتمل</span></td>
+                            <td>PRO-555123</td>
+                        </tr>
+
+                        <!-- عمليات قيد المعالجة -->
+                        <tr>
+                            <td>2024-01-08 15:40</td>
+                            <td><span style="color: #e74c3c;">سحب</span></td>
+                            <td>سحب عملات رقمية - Bitcoin</td>
+                            <td style="color: #e74c3c;">-$1,000.00</td>
+                            <td><span class="status pending">قيد المعالجة</span></td>
+                            <td>WD-456121</td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-07 12:00</td>
+                            <td><span style="color: #27ae60;">إيداع</span></td>
+                            <td>إيداع عملات رقمية - USDT</td>
+                            <td style="color: #27ae60;">+$800.00</td>
+                            <td><span class="status pending">قيد المعالجة</span></td>
+                            <td>DEP-789121</td>
+                        </tr>
+
+                        <!-- عمليات فاشلة -->
+                        <tr>
+                            <td>2024-01-06 17:25</td>
+                            <td><span style="color: #e74c3c;">سحب</span></td>
+                            <td>سحب عبر ويسترن يونيون</td>
+                            <td style="color: #e74c3c;">-$750.00</td>
+                            <td><span class="status failed">فاشل</span></td>
+                            <td>WD-456120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ترقيم الصفحات -->
+            <div style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">
+                <button style="padding: 8px 12px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">السابق</button>
+                <button style="padding: 8px 12px; border: 1px solid #3498db; background: #3498db; color: white; border-radius: 5px; cursor: pointer;">1</button>
+                <button style="padding: 8px 12px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">2</button>
+                <button style="padding: 8px 12px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">3</button>
+                <button style="padding: 8px 12px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">التالي</button>
+            </div>
+        </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

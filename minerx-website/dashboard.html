@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - لوحة التحكم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="crypto-styles.css">
+    <style>
+        .price-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .price-neutral {
+            animation: priceNeutral 0.5s ease;
+        }
+
+        @keyframes priceNeutral {
+            0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            100% { background: inherit; }
+        }
+        
+        .deposit-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* أنماط قسم العملات الرقمية */
+        .crypto-section {
+            margin: 40px 0;
+        }
+
+        .crypto-section .card {
+            margin-bottom: 0;
+        }
+
+        /* أنماط النص الترحيبي */
+        .investment-promo {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .investment-promo h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .main-offer {
+            margin-bottom: 25px;
+        }
+
+        .highlight-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 22px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .highlight-badge strong {
+            color: #ffeb3b;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: right;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .feature i {
+            font-size: 24px;
+            color: #ffeb3b;
+            background: rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 50%;
+            min-width: 50px;
+        }
+
+        .feature h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+
+        .feature p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .cta-section {
+            margin-top: 25px;
+        }
+
+        .trust-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .invest-now-btn {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .invest-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            background: linear-gradient(45deg, #ff9800, #ffeb3b);
+        }
+
+        .small-note {
+            font-size: 12px;
+            margin-top: 15px;
+            opacity: 0.7;
+        }
+
+        /* أنماط شريط الإشعارات */
+        .notification-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 0;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .notification-close {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .notification-content {
+            display: flex;
+            gap: 30px;
+            padding: 0 50px;
+            animation: scrollNotifications 30s linear infinite;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .notification-item i {
+            color: #ffeb3b;
+        }
+
+        .notification-amount {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .notification-email {
+            color: #e0e0e0;
+        }
+
+        @keyframes scrollNotifications {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 768px) {
+            .investment-promo {
+                padding: 20px 15px;
+            }
+            
+            .investment-promo h2 {
+                font-size: 24px;
+            }
+            
+            .highlight-badge {
+                font-size: 18px;
+                padding: 12px 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .invest-now-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .notification-content {
+                padding: 0 40px;
+                gap: 20px;
+            }
+
+            .notification-item {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط العلوي الجديد -->
+    <nav class="top-navbar">
+        <div class="navbar-container">
+            <!-- الشعار -->
+            <div class="navbar-brand">
+                <span><i class="fas fa-microchip"></i></span>
+                <span>MinerX</span>
+            </div>
+
+            <!-- القائمة -->
+            <ul class="navbar-menu">
+                <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> <span>لوحة التحكم</span></a></li>
+                <li><a href="deposit.html"><i class="fas fa-wallet"></i> <span>الإيداع</span></a></li>
+                <li><a href="withdraw.html"><i class="fas fa-money-bill-wave"></i> <span>السحب</span></a></li>
+                <li><a href="history.html"><i class="fas fa-history"></i> <span>السجل</span></a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> <span>الملف الشخصي</span></a></li>
+                <li><a href="index.html" class="no-logout"><i class="fas fa-sign-out-alt"></i> <span>تسجيل الخروج</span></a></li>
+            </ul>
+
+            <!-- معلومات المستخدم -->
+            <div class="navbar-user">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <div class="user-name" style="font-size: 0.9em;">مستخدم جديد</div>
+                    <div class="user-email" style="font-size: 0.75em; opacity: 0.8;">user@example.com</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        <!-- الهيدر -->
+        <div class="header">
+            <div class="header-right">
+                <h2>مرحباً بك في MinerX</h2>
+            </div>
+        </div>
+
+        <!-- النص الترحيبي الاستثماري -->
+        <div class="investment-promo">
+            <h2><i class="fas fa-gem"></i> استثمر اليوم.. تربح غدًا</h2>
+            
+            <div class="main-offer">
+                <div class="highlight-badge">
+                    <span>عوائد استثمارية تصل إلى <strong>150% شهريًا</strong></span>
+                </div>
+                <p class="subtitle">ابنِ مستقبلك المالي مع <strong>MinerX</strong></p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h3>أرباح يومية تبدأ من 6%</h3>
+                        <p>تتبع أرباحك لحظة بلحظة</p>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-layer-group"></i>
+                    <div>
+                        <h3>خطط استثمارية متنوعة</h3>
+                        <p>تناسب جميع الميزانيات</p>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <div>
+                        <h3>ابدأ بـ 100$ فقط</h3>
+                        <p>بداية سهلة وميسورة</p>
+                    </div>
+                </div>
+                
+                <div class="feature">
+                    <i class="fas fa-handshake"></i>
+                    <div>
+                        <h3>شراكة مع أكبر المزارع</h3>
+                        <p>أكبر مزارع التعدين عالميًا</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <p class="trust-text">انضم إلى آلاف المستثمرين الناجحين حول العالم</p>
+                <button class="invest-now-btn" onclick="scrollToPackages()">
+                    <i class="fas fa-rocket"></i>
+                    ابدأ رحلتك الاستثمارية الآن
+                </button>
+                <p class="small-note">استثمار آمن ∙ شفافية كاملة ∙ دعم فني متواصل</p>
+            </div>
+        </div>
+
+        <!-- الشريط العلوي للإشعارات - تم نقله تحت زر استثمر الآن -->
+        <div class="notification-bar" id="notificationBar">
+            <button class="notification-close" onclick="toggleNotifications()">✕</button>
+            <div class="notification-content" id="notificationContent">
+                <!-- سيتم توليد الإشعارات عشوائياً بواسطة JavaScript -->
+            </div>
+        </div>
+
+        <!-- باقي المحتوى يبقى كما هو -->
+        <!-- معلومات السوق -->
+        <div class="card market-info-card">
+            <h3><i class="fas fa-chart-bar"></i> حالة السوق</h3>
+            <div id="market-info" style="font-size: 12px; margin: 10px 0;">
+                <i class="fas fa-sync-alt fa-spin"></i> جاري تحميل بيانات السوق...
+            </div>
+        </div>
+
+        <!-- زر تحديث الأسعار -->
+        <div class="card refresh-card">
+            <h3><i class="fas fa-sync-alt"></i> تحديث الأسعار الحية</h3>
+            <p style="font-size: 12px; margin: 10px 0;">آخر تحديث: <span id="last-update">الآن</span></p>
+            <button id="refresh-prices" style="background: rgba(255,255,255,0.3); color: white; border: 1px solid white; padding: 8px 15px; border-radius: 20px; cursor: pointer;">
+                <i class="fas fa-sync-alt"></i> تحديث الأسعار
+            </button>
+        </div>
+
+        <!-- باقي المحتوى يبقى كما هو دون تغيير -->
+        <!-- قسم أسعار العملات الرقمية المدمج -->
+        <section class="crypto-section" id="crypto-prices">
+            <div class="crypto-container">
+                <div class="crypto-header">
+                    <div class="crypto-logo">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h2 class="crypto-title">أسعار العملات الرقمية الحية</h2>
+                    <p class="crypto-subtitle">تتبع أحدث أسعار العملات المشفرة من البورصات العالمية - تحديث مباشر</p>
+                    
+                    <div class="crypto-controls">
+                        <div class="crypto-search-box">
+                            <input type="text" id="crypto-search-input" placeholder="ابحث عن عملة...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="crypto-filter-buttons">
+                            <button class="crypto-filter-btn active" data-filter="all">الكل</button>
+                            <button class="crypto-filter-btn" data-filter="gainers">الأعلى ارتفاعاً</button>
+                            <button class="crypto-filter-btn" data-filter="losers">الأكثر انخفاضاً</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crypto-stats-bar">
+                    <div class="crypto-stat-item">
+                        <span>إجمالي القيمة السوقية:</span>
+                        <span class="crypto-stat-value" id="crypto-total-market-cap">$2.36 تريليون</span>
+                    </div>
+                    <div class="crypto-stat-item">
+                        <span>حجم التداول (24 ساعة):</span>
+                        <span class="crypto-stat-value" id="crypto-total-volume">$78.45 مليار</span>
+                    </div>
+                    <div class="crypto-stat-item">
+                        <span>هيمنة البيتكوين:</span>
+                        <span class="crypto-stat-value" id="crypto-btc-dominance">52.4%</span>
+                    </div>
+                </div>
+                
+                <div class="crypto-grid" id="crypto-grid">
+                    <div class="crypto-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل بيانات العملات الرقمية...</p>
+                    </div>
+                </div>
+                
+                <div class="crypto-last-updated">
+                    آخر تحديث: <span id="crypto-update-time">--</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- باقي المحتوى يبقى كما هو -->
+        <!-- بطاقة الوقت الحي -->
+        <div class="card time-card">
+            <h3><i class="fas fa-clock"></i> الوقت الحالي</h3>
+            <div class="current-day"></div>
+            <div class="current-date"></div>
+            <div class="current-time"></div>
+            <div>
+                <span id="timezone-info-bottom">التوقيت المحلي</span>
+            </div>
+        </div>
+
+        <!-- قسم أسعار العملات -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3><i class="fas fa-exchange-alt"></i> أسعار العملات</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                <div>
+                    <div style="font-size: 12px; color: #7f8c8d;">USD/EUR</div>
+                    <div style="font-size: 16px; font-weight: bold;" id="eur-price">0.9300</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; color: #7f8c8d;">USD/GBP</div>
+                    <div style="font-size: 16px; font-weight: bold;" id="gbp-price">0.7900</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; color: #7f8c8d;">USD/SAR</div>
+                    <div style="font-size: 16px; font-weight: bold;">3.7500</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الباقات الاستثمارية -->
+        <div class="card">
+            <h3><i class="fas fa-bullseye"></i> الباقات الاستثمارية</h3>
+            <p style="color: #7f8c8d; margin-bottom: 20px;">اختر الباقة المناسبة واستثمر بذكاء</p>
+            
+            <!-- رسالة توضيحية حول الإيداع -->
+            <div id="deposit-required-message" class="deposit-notice" style="display: none;">
+                <h3><i class="fas fa-lightbulb"></i> يجب إيداع الأموال أولاً</h3>
+                <p>يجب أن يكون لديك رصيد كافي في حسابك لبدء الاستثمار. <a href="deposit.html" style="color: #3498db; text-decoration: underline;">انقر هنا للإيداع</a></p>
+            </div>
+            
+            <div class="packages-grid">
+                <!-- الباقات تبقى كما هي -->
+                <!-- الباقة 1: 100 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">مبتدىء</div>
+                    <div class="package-header">
+                        <h4>الباقة البرونزية</h4>
+                        <div class="package-amount">$100</div>
+                        <div class="package-level">المستوى 1</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 6% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 150% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> دعم فني 24/7</li>
+                        <li><i class="fas fa-check"></i> سحب الأرباح يومياً</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$6.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$150.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$156.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(100)">استثمر الآن</button>
+                </div>
+
+                <!-- باقي الباقات تبقى كما هي -->
+                <!-- الباقة 2: 170 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">فضي</div>
+                    <div class="package-header">
+                        <h4>الباقة الفضية</h4>
+                        <div class="package-amount">$170</div>
+                        <div class="package-level">المستوى 2</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 6% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 150% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> دعم فني 24/7</li>
+                        <li><i class="fas fa-check"></i> تقارير أدome أسبوعية</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$10.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$255.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$265.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(170)">استثمر الآن</button>
+                </div>
+
+                <!-- الباقة 3: 250 دولار -->
+                <div class="package-card featured">
+                    <div class="package-badge">ذهبي</div>
+                    <div class="package-header">
+                        <h4>الباقة الذهبية</h4>
+                        <div class="package-amount">$250</div>
+                        <div class="package-level">المستوى 3</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 6% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 150% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> دعم فني مميز</li>
+                        <li><i class="fas fa-check"></i> مدير استثمار شخصي</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$15.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$250.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$390.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(250)">استثمر الآن</button>
+                </div>
+
+                <!-- باقي الباقات تبقى كما هي -->
+                <!-- الباقة 4: 500 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">بلاتيني</div>
+                    <div class="package-header">
+                        <h4>الباقة البلاتينية</h4>
+                        <div class="package-amount">$500</div>
+                        <div class="package-level">المستوى 4</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 10% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 200% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> مدير استثمار شخصي</li>
+                        <li><i class="fas fa-check"></i> تحليلات سوق حصرية</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$50.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$1000.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$1050.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(500)">استثمر الآن</button>
+                </div>
+
+                <!-- الباقة 5: 1000 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">الماسي</div>
+                    <div class="package-header">
+                        <h4>الباقة الماسية</h4>
+                        <div class="package-amount">$1,000</div>
+                        <div class="package-level">المستوى 5</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 10% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 200% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> مدير استثمار شخصي</li>
+                        <li><i class="fas fa-check"></i> تحليلات سوق حصرية</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$60.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$1,500.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$1,560.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(1000)">استثمر الآن</button>
+                </div>
+
+                <!-- الباقة 6: 1500 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">VIP</div>
+                    <div class="package-header">
+                        <h4>الباقة VIP</h4>
+                        <div class="package-amount">$1,500</div>
+                        <div class="package-level">المستوى 6</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 10% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 200% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> مدير استثمار شخصي</li>
+                        <li><i class="fas fa-check"></i> ندوات استثمارية حصرية</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$90.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$2,250.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$2,340.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(1500)">استثمر الآن</button>
+                </div>
+
+                <!-- الباقة 7: 2000 دولار -->
+                <div class="package-card">
+                    <div class="package-badge">Premium</div>
+                    <div class="package-header">
+                        <h4>الباقة Premium</h4>
+                        <div class="package-amount">$2,000</div>
+                        <div class="package-level">المستوى 7</div>
+                    </div>
+                    
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> ربح تراكمي 25% كل 72 ساعة</li>
+                        <li><i class="fas fa-check"></i> ربح شهري 225% كل 30 يوم</li>
+                        <li><i class="fas fa-check"></i> فريق استثمار متكامل</li>
+                        <li><i class="fas fa-check"></i> استشارات مالية مخصصة</li>
+                    </ul>
+                    
+                    <div class="package-profit-info">
+                        <div class="profit-item">
+                            <span class="profit-label">الربح التراكمي القادم:</span>
+                            <span class="profit-value">+$120.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">الربح الشهري القادم:</span>
+                            <span class="profit-value">+$3,000.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">إجمالي الأرباح المتوقعة:</span>
+                            <span class="profit-value accumulated">+$3,120.00</span>
+                        </div>
+                    </div>
+                    
+                    <button class="invest-button" onclick="checkBalanceAndInvest(2000)">استثمر الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- باقي المحتوى يبقى كما هو -->
+        <!-- نموذج تأكيد الاستثمار -->
+        <div class="modal-overlay" id="investmentModal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeInvestmentModal()">×</button>
+                <div class="modal-header">
+                    <h3>تأكيد الاستثمار</h3>
+                    <p>الرجاء مراجعة تفاصيل استثمارك</p>
+                </div>
+                
+                <div class="investment-details">
+                    <div class="detail-row">
+                        <span>المبلغ المستثمر:</span>
+                        <span id="modal-invest-amount">$0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>الربح التراكمي (6% كل 72 ساعة):</span>
+                        <span id="modal-cumulative-profit">$0</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>الربح الشهري (150% كل 30 يوم):</span>
+                        <span id="modal-monthly-profit">$0</span>
+                    </div>
+                    <div class="detail-row total">
+                        <span>إجمالي العوائد المتوقعة:</span>
+                        <span id="modal-total-profit">$0</span>
+                    </div>
+                </div>
+                
+                <button class="confirm-button" onclick="confirmInvestment()">تأكيد الاستثمار</button>
+            </div>
+        </div>
+
+        <!-- قسم الاستثمارات النشطة -->
+        <div class="card">
+            <h3><i class="fas fa-chart-bar"></i> استثماراتي النشطة</h3>
+            <div class="investments-table-container">
+                <table class="investments-table">
+                    <thead>
+                        <tr>
+                            <th>الباقة</th>
+                            <th>المبلغ</th>
+                            <th>تاريخ البدء</th>
+                            <th>الربح التراكمي</th>
+                            <th>الربح الشهري</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="active-investments-body">
+                        <!-- سيتم ملؤها بالبيانات من JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- محفظتك الاستثمارية -->
+        <div class="card">
+            <h3><i class="fas fa-briefcase"></i> محفظتك الاستثمارية</h3>
+            <div class="portfolio">
+                <div class="portfolio-item">
+                    <span>رصيدك المتاح:</span>
+                    <span class="amount balance" id="available-balance">$0.00</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>إجمالي الاستثمارات النشطة:</span>
+                    <span class="amount" id="total-investment">$0.00</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>الأرباح المستحقة:</span>
+                    <span class="amount profit" id="total-profits">$0.00</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>الربح التراكمي القادم (6%):</span>
+                    <span class="amount" id="next-cumulative">$0.00</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>الربح الشهري القادم (150%):</span>
+                    <span class="amount" id="next-monthly">$0.00</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>القيمة الإجمالية للمحفظة:</span>
+                    <span class="amount" style="color: #667eea; font-size: 18px;" id="total-portfolio">$0.00</span>
+                </div>
+            </div>
+            
+            <!-- رسالة عندما لا توجد استثمارات -->
+            <div id="empty-portfolio-message" style="text-align: center; padding: 30px; color: #7f8c8d; display: none;">
+                <div style="font-size: 48px; margin-bottom: 15px;"><i class="fas fa-wallet"></i></div>
+                <h4>المحفظة فارغة</h4>
+                <p>لم تقم بأي استثمارات حتى الآن. ابدأ باستثمارك الأول لترى أرباحك تنمو!</p>
+                <button class="invest-button" style="margin-top: 15px; max-width: 200px;" onclick="scrollToPackages()">
+                    ابدأ الاستثمار
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="crypto-script.js"></script>
+    <script>
+        // دالة التمرير إلى قسم الباقات
+        function scrollToPackages() {
+            document.querySelector('.packages-grid').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // دالة توليد الإشعارات العشوائية
+        function generateRandomEmail() {
+            const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'protonmail.com'];
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            let username = '';
+            
+            const usernameLength = Math.floor(Math.random() * 6) + 3;
+            for (let i = 0; i < usernameLength; i++) {
+                username += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            const domain = domains[Math.floor(Math.random() * domains.length)];
+            return username + '@' + domain;
+        }
+
+        function maskEmail(email) {
+            const [username, domain] = email.split('@');
+            const visiblePart = username.substring(0, 3);
+            const hiddenPart = '*'.repeat(username.length - 3);
+            return visiblePart + hiddenPart + '@' + domain;
+        }
+
+        function generateRandomAmount() {
+            return Math.floor(Math.random() * 4900) + 100;
+        }
+
+        function createNotification() {
+            const email = generateRandomEmail();
+            const amount = generateRandomAmount();
+            const maskedEmail = maskEmail(email);
+            
+            return `
+                <div class="notification-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>تم إيداع <span class="notification-amount">$${amount.toLocaleString()}</span> بواسطة</span>
+                    <span class="notification-email">${maskedEmail}</span>
+                </div>
+            `;
+        }
+
+        function generateNotifications() {
+            const notificationContent = document.getElementById('notificationContent');
+            const notifications = [];
+            
+            for (let i = 0; i < 8; i++) {
+                notifications.push(createNotification());
+            }
+            
+            notificationContent.innerHTML = notifications.join('');
+        }
+
+        function toggleNotifications() {
+            const notificationBar = document.getElementById('notificationBar');
+            notificationBar.style.display = notificationBar.style.display === 'none' ? 'block' : 'none';
+            localStorage.setItem('notificationsHidden', notificationBar.style.display === 'none');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const notificationsHidden = localStorage.getItem('notificationsHidden') === 'true';
+            if (!notificationsHidden) {
+                document.getElementById('notificationBar').style.display = 'block';
+            }
+            
+            generateNotifications();
+            setInterval(generateNotifications, 30000);
+        });
+    </script>
+</body>
+</html>

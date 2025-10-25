@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - الإيداع</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .crypto-wallets {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .wallet-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-option:hover {
+            border-color: #007bff;
+            background: #f0f8ff;
+        }
+        
+        .wallet-option.active {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .wallet-address {
+            display: none;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .address-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            direction: ltr;
+            text-align: center;
+            font-family: monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .copy-btn:hover {
+            background: #218838;
+        }
+        
+        .wallet-icon {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        
+        .network-badge {
+            background: #6c757d;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .deposit-notice {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <div class="header">
+        <div class="header-right">
+            <h2>نظام الإيداع -MinerX</h2>
+        </div>
+        <div class="header-left">
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <!-- الشريط الجانبي -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 لوحة التحكم</a></li>
+            <li><a href="deposit.html" class="active">💳 الإيداع</a></li>
+            <li><a href="withdraw.html">💰 السحب</a></li>
+            <li><a href="history.html">📋 السجل</a></li>
+            <li><a href="profile.html">👤 الملف الشخصي</a></li>
+            <li><a href="index.html" class="no-logout">🚪 تسجيل الخروج</a></li>
+        </ul>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="dashboard">
+        <div class="form-container">
+            <h2>💳 إيداع الأموال</h2>
+            
+            <!-- معلومات الرصيد -->
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>رصيدك الحالي</h3>
+                <div class="balance" style="font-size: 24px; color: #27ae60; font-weight: bold;">$10,000.00</div>
+            </div>
+
+            <!-- إشعار -->
+            <div class="deposit-notice">
+                <h3>🎯 طرق الإيداع المتاحة</h3>
+                <p>يتم الإيداع حصرياً عبر العملات الرقمية (USDT و SOL)</p>
+            </div>
+
+            <!-- قسم العملات الرقمية -->
+            <div id="cryptoSection" class="crypto-wallets">
+                <h3>اختر العملة الرقمية للإيداع</h3>
+                
+                <!-- Solana -->
+                <div class="wallet-option" onclick="selectWallet('solana')">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="network-badge">SOL</span>
+                            <strong>Solana</strong>
+                            <span class="wallet-icon">🔵</span>
+                        </div>
+                        <div class="wallet-check">✓</div>
+                    </div>
+                </div>
+                
+                <div id="solanaAddress" class="wallet-address">
+                    <div class="address-box" id="solanaAddressText">
+                        364LGdnbjDUUh1vc8vQdMknQv2jgMEbquUMQm86AubpW
+                    </div>
+                    <button class="copy-btn" onclick="copyAddress('solana')">نسخ العنوان</button>
+                    <button class="copy-btn" onclick="showInstructions('solana')">تعليمات الإيداع</button>
+                    
+                    <div id="solanaInstructions" class="instructions" style="display: none;">
+                        <h4>📝 تعليمات إيداع SOL:</h4>
+                        <ul>
+                            <li>انسخ عنوان المحفظة أعلاه</li>
+                            <li>أرسل فقط عملة SOL إلى هذا العنوان</li>
+                            <li>لا ترسل عملات أخرى إلى هذا العنوان</li>
+                            <li>الحد الأدنى للإيداع: 0.1 SOL</li>
+                            <li>سيتم التأكيد خلال 2-5 دقائق</li>
+                            <li>احتفظ برقم المعاملة (TXID) للإشارة إليه</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- USDT -->
+                <div class="wallet-option" onclick="selectWallet('usdt')">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="network-badge">TRC20</span>
+                            <strong>USDT</strong>
+                            <span class="wallet-icon">💲</span>
+                        </div>
+                        <div class="wallet-check">✓</div>
+                    </div>
+                </div>
+                
+                <div id="usdtAddress" class="wallet-address">
+                    <div class="address-box" id="usdtAddressText">
+                        TUQquSerTsVaeY6hujMcLDMWaagPn6xBHB
+                    </div>
+                    <button class="copy-btn" onclick="copyAddress('usdt')">نسخ العنوان</button>
+                    <button class="copy-btn" onclick="showInstructions('usdt')">تعليمات الإيداع</button>
+                    
+                    <div id="usdtInstructions" class="instructions" style="display: none;">
+                        <h4>📝 تعليمات إيداع USDT:</h4>
+                        <ul>
+                            <li>انسخ عنوان المحفظة أعلاه</li>
+                            <li>أرسل فقط عملة USDT على شبكة TRC20</li>
+                            <li>تأكد من اختيار شبكة TRC20 عند الإرسال</li>
+                            <li>الحد الأدنى للإيداع: 10 USDT</li>
+                            <li>سيتم التأكيد خلال 2-5 دقائق</li>
+                            <li><strong>تحذير:</strong> لا ترسل USDT على شبكات أخرى</li>
+                            <li>احتفظ برقم المعاملة (TXID) للإشارة إليه</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- معلومات عامة -->
+                <div class="instructions">
+                    <h4>📋 معلومات مهمة:</h4>
+                    <ul>
+                        <li>تأكد من صحة العنوان قبل الإرسال</li>
+                        <li>لا ترسل عملات من منصات تبادل مباشرة</li>
+                        <li>الحد الأدنى للإيداع: 0.1 SOL أو 10 USDT</li>
+                        <li>مدة التأكيد: 2-5 دقائق</li>
+                        <li>احتفظ برقم المعاملة (TXID) دائماً</li>
+                        <li>للمساعدة، راسل الدعم الفني</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- معلومات مهمة -->
+            <div class="info-box" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <h4>📋 شروط الإيداع:</h4>
+                <ul style="text-align: right; margin-right: 20px;">
+                    <li>يتم الإيداع حصرياً عبر العملات الرقمية</li>
+                    <li>الحد الأدنى: 0.1 SOL أو 10 USDT</li>
+                    <li>لا يوجد حد أقصى للإيداع</li>
+                    <li>مدة التأكيد: 2-5 دقائق</li>
+                    <li>لا توجد رسوم إيداع</li>
+                    <li>للاستفسارات: راسل الدعم الفني</li>
+                </ul>
+            </div>
+
+            <!-- زر العودة إلى لوحة التحكم -->
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="dashboard.html" style="color: #3498db; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 1px solid #3498db; border-radius: 5px; display: inline-block;">
+                    ← العودة إلى لوحة التحكم
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تحديث الوقت
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-SA');
+            document.getElementById('current-time').textContent = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // اختيار المحفظة
+        function selectWallet(walletType) {
+            // إخفاء جميع العناوين
+            document.querySelectorAll('.wallet-address').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // إخفاء جميع التعليمات
+            document.querySelectorAll('.instructions').forEach(el => {
+                if (el.id.includes('Instructions')) {
+                    el.style.display = 'none';
+                }
+            });
+            
+            // إزالة النشط من جميع الخيارات
+            document.querySelectorAll('.wallet-option').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // إظهار العنوان المختار وإضافة النشط
+            document.getElementById(walletType + 'Address').style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        // نسخ العنوان
+        function copyAddress(walletType) {
+            const addressText = document.getElementById(walletType + 'AddressText').textContent;
+            navigator.clipboard.writeText(addressText).then(() => {
+                alert('✅ تم نسخ العنوان بنجاح!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = addressText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ تم نسخ العنوان بنجاح!');
+            });
+        }
+
+        // عرض التعليمات
+        function showInstructions(walletType) {
+            const instructions = document.getElementById(walletType + 'Instructions');
+            instructions.style.display = instructions.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

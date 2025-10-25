@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - إنشاء حساب</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .password-strength {
+            margin-top: 5px;
+            font-size: 12px;
+            min-height: 18px;
+        }
+        
+        .password-requirements {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 3px 0;
+        }
+        
+        .requirement.valid {
+            color: #27ae60;
+        }
+        
+        .requirement.invalid {
+            color: #e74c3c;
+        }
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .logo p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>🏦 MinerX</h1>
+                <p>انضم إلى مجتمع المستثمرين</p>
+            </div>
+            
+            <form class="login-form" id="registerForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <label for="firstName">الاسم الأول</label>
+                        <input type="text" id="firstName" placeholder="الاسم الأول" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="lastName">اسم العائلة</label>
+                        <input type="text" id="lastName" placeholder="اسم العائلة" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" placeholder="+966500000000" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" placeholder="أنشئ كلمة مرور قوية" required>
+                    <div class="password-strength" id="password-strength"></div>
+                    
+                    <div class="password-requirements">
+                        <div class="requirement invalid" id="req-length">• 8 أحرف على الأقل</div>
+                        <div class="requirement invalid" id="req-uppercase">• حرف كبير واحد على الأقل</div>
+                        <div class="requirement invalid" id="req-number">• رقم واحد على الأقل</div>
+                        <div class="requirement invalid" id="req-special">• رمز خاص واحد على الأقل (!@#$%^&*)</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                    <div class="password-strength" id="password-match"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="country">البلد</label>
+                    <select id="country" required>
+                        <option value="">اختر بلدك</option>
+                        <option value="sy">سوريا</option>
+                        <option value="sa">المملكة العربية السعودية</option>
+                        <option value="ae">الإمارات العربية المتحدة</option>
+                        <option value="kw">الكويت</option>
+                        <option value="qa">قطر</option>
+                        <option value="bh">البحرين</option>
+                        <option value="om">عمان</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label style="display: flex; align-items: start; gap: 10px; font-size: 14px;">
+                        <input type="checkbox" required style="margin-top: 3px;">
+                        <span>
+                            أوافق على <a href="#" style="color: #3498db;">شروط الخدمة</a> 
+                            و <a href="#" style="color: #3498db;">سياسة الخصوصية</a>
+                        </span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="login-btn">إنشاء حساب جديد</button>
+                
+                <div class="links">
+                    <a href="index.html">لديك حساب بالفعل؟ سجل الدخول</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // إضافة التحقق في الوقت الحقيقي لكلمة المرور
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            if (passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    validatePasswordRequirements(this.value);
+                    validatePasswordStrength();
+                });
+            }
+            
+            if (confirmPasswordInput) {
+                confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+            }
+        });
+        
+        // التحقق من متطلبات كلمة المرور
+        function validatePasswordRequirements(password) {
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*]/.test(password)
+            };
+            
+            // تحديث واجهة المتطلبات
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(`req-${req}`);
+                if (element) {
+                    if (requirements[req]) {
+                        element.classList.remove('invalid');
+                        element.classList.add('valid');
+                        element.innerHTML = '✓ ' + element.textContent.substring(2);
+                    } else {
+                        element.classList.remove('valid');
+                        element.classList.add('invalid');
+                        element.innerHTML = '• ' + element.textContent.substring(2);
+                    }
+                }
+            });
+        }
+        
+        // التحقق من قوة كلمة المرور
+        function validatePasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthIndicator = document.getElementById('password-strength');
+            
+            if (!strengthIndicator) return;
+            
+            if (password.length === 0) {
+                strengthIndicator.innerHTML = '';
+                return;
+            }
+            
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*]/.test(password)
+            };
+            
+            const metRequirements = Object.values(requirements).filter(Boolean).length;
+            const totalRequirements = Object.keys(requirements).length;
+            
+            if (metRequirements === totalRequirements) {
+                strengthIndicator.innerHTML = '<span style="color: #27ae60;">✅ كلمة مرور قوية</span>';
+            } else if (metRequirements >= totalRequirements / 2) {
+                strengthIndicator.innerHTML = '<span style="color: #f39c12;">⚠️ كلمة مرور متوسطة</span>';
+            } else {
+                strengthIndicator.innerHTML = '<span style="color: #e74c3c;">❌ كلمة مرور ضعيفة</span>';
+            }
+        }
+        
+        // التحقق من تطابق كلمتي المرور
+        function validatePasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const matchIndicator = document.getElementById('password-match');
+            
+            if (!matchIndicator) return;
+            
+            if (confirmPassword.length === 0) {
+                matchIndicator.innerHTML = '';
+                return;
+            }
+            
+            if (password === confirmPassword) {
+                matchIndicator.innerHTML = '<span style="color: #27ae60;">✅ كلمتا المرور متطابقتان</span>';
+            } else {
+                matchIndicator.innerHTML = '<span style="color: #e74c3c;">❌ كلمتا المرور غير متطابقتان</span>';
+            }
+        }
+    </script>
+</body>
+</html>

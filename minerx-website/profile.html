@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinerX - الملف الشخصي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- الهيدر -->
+    <div class="header">
+        <div class="header-right">
+            <h2>الملف الشخصي - MinerX</h2>
+        </div>
+        <div class="header-left">
+            <span id="current-time"></span>
+        </div>
+    </div>
+
+    <!-- الشريط الجانبي -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 لوحة التحكم</a></li>
+            <li><a href="deposit.html">💳 الإيداع</a></li>
+            <li><a href="withdraw.html">💰 السحب</a></li>
+            <li><a href="history.html">📋 السجل</a></li>
+            <li><a href="profile.html" class="active">👤 الملف الشخصي</a></li>
+            <li><a href="index.html" class="no-logout">🚪 تسجيل الخروج</a></li>
+        </ul>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="dashboard">
+        <div class="cards-grid">
+            <!-- معلومات الحساب -->
+            <div class="card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3498db, #2980b9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px;">
+                        👤
+                    </div>
+                    <h3 class="user-name">أحمد محمد</h3>
+                    <p style="color: #7f8c8d;">العضوية: <span class="user-membership">VIP</span></p>
+                </div>
+                
+                <div class="portfolio-item">
+                    <span>رقم العضوية:</span>
+                    <span>INV-789456123</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>تاريخ التسجيل:</span>
+                    <span>2024-01-01</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>الحالة:</span>
+                    <span style="color: #27ae60;">✅ مفعل</span>
+                </div>
+            </div>
+
+            <!-- إحصائيات سريعة -->
+            <div class="card">
+                <h3>📈 إحصائيات الاستثمار</h3>
+                <div class="portfolio-item">
+                    <span>مدة الاستثمار:</span>
+                    <span>15 يوم</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>إجمالي العمليات:</span>
+                    <span>36 عملية</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>معدل النجاح:</span>
+                    <span style="color: #27ae60;">94%</span>
+                </div>
+                <div class="portfolio-item">
+                    <span>التقييم:</span>
+                    <span>⭐⭐⭐⭐⭐ (5.0)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- معلومات الملف الشخصي -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>👤 المعلومات الشخصية</h3>
+            <form id="profileForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label for="firstName">الاسم الأول</label>
+                        <input type="text" id="firstName" value="أحمد" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">اسم العائلة</label>
+                        <input type="text" id="lastName" value="محمد" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" value="demo@investogold.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" value="+966500000000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">البلد</label>
+                    <select id="country" required>
+                        <option value="sa">المملكة العربية السعودية</option>
+                        <option value="ae">الإمارات العربية المتحدة</option>
+                        <option value="kw">الكويت</option>
+                        <option value="qa">قطر</option>
+                        <option value="bh">البحرين</option>
+                        <option value="om">عمان</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان</label>
+                    <textarea id="address" rows="3" placeholder="أدخل عنوانك الكامل">الرياض، حي العليا</textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">💾 حفظ التغييرات</button>
+            </form>
+        </div>
+
+        <!-- الأمان -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>🔒 إعدادات الأمان</h3>
+            
+            <div class="security-item">
+                <div>
+                    <strong>كلمة المرور</strong>
+                    <p>آخر تحديث: منذ 30 يوم</p>
+                </div>
+                <button onclick="changePassword()" style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    تغيير كلمة المرور
+                </button>
+            </div>
+
+            <div class="security-item">
+                <div>
+                    <strong>المصادقة الثنائية</strong>
+                    <p>غير مفعلة</p>
+                </div>
+                <button style="padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    تفعيل
+                </button>
+            </div>
+
+            <div class="security-item">
+                <div>
+                    <strong>تسجيلات الدخول</strong>
+                    <p>آخر تسجيل: اليوم 14:30</p>
+                </div>
+                <button onclick="viewLoginHistory()" style="padding: 8px 15px; background: #95a5a6; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    عرض السجل
+                </button>
+            </div>
+        </div>
+
+        <!-- التفضيلات -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>⚙️ التفضيلات</h3>
+            
+            <div class="preference-item">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" checked>
+                    <span>إشعارات البريد الإلكتروني</span>
+                </label>
+            </div>
+
+            <div class="preference-item">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" checked>
+                    <span>تنبيهات الأسعار</span>
+                </label>
+            </div>
+
+            <div class="preference-item">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox">
+                    <span>الإشعارات عبر SMS</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="language">اللغة</label>
+                <select id="language">
+                    <option value="ar" selected>العربية</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="currency">العملة الافتراضية</label>
+                <select id="currency">
+                    <option value="usd" selected>الدولار الأمريكي (USD)</option>
+                    <option value="sar">الريال السعودي (SAR)</option>
+                    <option value="aed">الدرهم الإماراتي (AED)</option>
+                </select>
+            </div>
+
+            <button class="submit-btn">💾 حفظ التفضيلات</button>
+        </div>
+
+        <!-- التوثيق -->
+        <div class="card">
+            <h3>📋 حالة التوثيق</h3>
+            
+            <div class="verification-item">
+                <div>
+                    <strong>البريد الإلكتروني</strong>
+                    <p>✅ مفعل ومؤكد</p>
+                </div>
+            </div>
+
+            <div class="verification-item">
+                <div>
+                    <strong>رقم الهاتف</strong>
+                    <p>✅ مؤكد</p>
+                </div>
+            </div>
+
+            <div class="verification-item">
+                <div>
+                    <strong>الهوية الشخصية</strong>
+                    <p>🔄 قيد المراجعة</p>
+                </div>
+                <button style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    رفع المستندات
+                </button>
+            </div>
+
+            <div class="verification-item">
+                <div>
+                    <strong>إثبات العنوان</strong>
+                    <p>❌ مطلوب</p>
+                </div>
+                <button style="padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    إكمال التوثيق
+                </button>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <small>📝 <strong>ملاحظة:</strong> تحتاج إلى إكمال التوثيق لتمكين جميع ميزات السحب والاستثمار.</small>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .security-item, .preference-item, .verification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .security-item:last-child, .preference-item:last-child, .verification-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+</html>
